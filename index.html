@@ -69,6 +69,9 @@
             text-align: center;
             margin-top: 20px;
         }
+        .table-container {
+            margin-top: 20px;
+        }
     </style>
 </head>
 <body>
@@ -89,18 +92,20 @@
             </div>
             <button type="submit" class="submit-btn">Записаться</button>
         </form>
-        <table id="client-table">
-            <thead>
-                <tr>
-                    <th>Имя</th>
-                    <th>Фамилия</th>
-                    <th>Номер телефона</th>
-                </tr>
-            </thead>
-            <tbody>
-                <!-- Записи клиентов будут добавлены сюда -->
-            </tbody>
-        </table>
+        <div class="table-container">
+            <table id="client-table">
+                <thead>
+                    <tr>
+                        <th>Имя</th>
+                        <th>Фамилия</th>
+                        <th>Номер телефона</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Записи клиентов будут добавлены сюда -->
+                </tbody>
+            </table>
+        </div>
         <div class="work-hours">
             <p>Время работы: с 10:00 до 18:00</p>
         </div>
