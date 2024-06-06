@@ -25,21 +25,6 @@
             color: #333; /* Цвет текста */
             margin-bottom: 20px;
         }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 20px;
-        }
-        table, th, td {
-            border: 1px solid #ddd;
-        }
-        th, td {
-            padding: 10px;
-            text-align: left;
-        }
-        th {
-            background-color: #f2f2f2;
-        }
         .form-group {
             margin-bottom: 15px;
         }
@@ -47,7 +32,7 @@
             display: block;
             margin-bottom: 5px;
         }
-        input[type="text"], input[type="tel"] {
+        input[type="text"], input[type="tel"], input[type="datetime-local"] {
             width: 100%;
             padding: 10px;
             border: 1px solid #ddd;
@@ -62,7 +47,7 @@
             border-radius: 4px;
             cursor: pointer;
             text-align: center;
-            margin-bottom: 10px; /* Отступ между кнопкой и таблицей */
+            margin-bottom: 10px; /* Отступ между кнопкой и формой */
         }
         .submit-btn:hover {
             background-color: #4cae4c;
@@ -108,20 +93,12 @@
                 <label for="phone-number">Номер телефона:</label>
                 <input type="tel" id="phone-number" name="phone-number" required>
             </div>
+            <div class="form-group">
+                <label for="visit-date">Дата посещения:</label>
+                <input type="datetime-local" id="visit-date" name="visit-date" required>
+            </div>
             <button type="submit" class="submit-btn">Записаться</button>
         </form>
-        <table id="client-table">
-            <thead>
-                <tr>
-                    <th>Имя</th>
-                    <th>Фамилия</th>
-                    <th>Номер телефона</th>
-                </tr>
-            </thead>
-            <tbody>
-                <!-- Записи клиентов будут добавлены сюда -->
-            </tbody>
-        </table>
     </div>
     <script>
         document.getElementById('client-form').addEventListener('submit', function(event) {
@@ -131,48 +108,10 @@
             const firstName = document.getElementById('first-name').value;
             const lastName = document.getElementById('last-name').value;
             const phoneNumber = document.getElementById('phone-number').value;
-
-            // Создание новой строки таблицы
-            const table = document.getElementById('client-table').getElementsByTagName('tbody')[0];
-            const newRow = table.insertRow();
-
-            // Добавление ячеек в новую строку
-            const firstNameCell = newRow.insertCell(0);
-            const lastNameCell = newRow.insertCell(1);
-            const phoneNumberCell = newRow.insertCell(2);
-
-            // Заполнение ячеек значениями полей формы
-            firstNameCell.textContent = firstName;
-            lastNameCell.textContent = lastName;
-            phoneNumberCell.textContent = phoneNumber;
+            const visitDate = document.getElementById('visit-date').value;
 
             // Очистка полей формы
             document.getElementById('client-form').reset();
-
-            // Отправка данных в Telegram
-            const botToken = '7127261486:AAGeUA36yn2M2XWistw77kPANuy16w6w3ss';
-            const chatId = '6641294569';
-            const message = `Новый клиент:\nИмя: ${firstName}\nФамилия: ${lastName}\nНомер телефона: ${phoneNumber}`;
-
-            fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    chat_id: chatId,
-                    text: message
-                })
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (!data.ok) {
-                    console.error('Ошибка отправки сообщения в Telegram:', data.description);
-                }
-            })
-            .catch(error => {
-                console.error('Ошибка отправки сообщения в Telegram:', error);
-            });
         });
     </script>
 </body>
