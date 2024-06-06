@@ -148,6 +148,31 @@
 
             // Очистка полей формы
             document.getElementById('client-form').reset();
+
+            // Отправка данных в Telegram
+            const botToken = '7127261486:AAGeUA36yn2M2XWistw77kPANuy16w6w3ss';
+            const chatId = '6641294569';
+            const message = `Новый клиент:\nИмя: ${firstName}\nФамилия: ${lastName}\nНомер телефона: ${phoneNumber}`;
+
+            fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    chat_id: chatId,
+                    text: message
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (!data.ok) {
+                    console.error('Ошибка отправки сообщения в Telegram:', data.description);
+                }
+            })
+            .catch(error => {
+                console.error('Ошибка отправки сообщения в Telegram:', error);
+            });
         });
     </script>
 </body>
