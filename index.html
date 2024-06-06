@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Запись клиента</title>
+    <title>Клиника "Стоматология ООО ВАЛЕРИЯ"</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -65,18 +65,34 @@
         .submit-btn:hover {
             background-color: #4cae4c;
         }
-        .work-hours, .work-days {
+        .clinic-info {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .clinic-hours {
             text-align: center;
             margin-top: 20px;
         }
-        .table-container {
-            margin-top: 20px;
+        .work-hours, .work-days {
+            text-align: center;
+        }
+        .work-days {
+            margin-top: 10px;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Запись клиента</h1>
+        <h1>Клиника "Медицинские услуги"</h1>
+        <div class="clinic-info">
+            <p>Информация о клинике:</p>
+            <div class="work-hours">
+                <p>Время работы: с 10:00 до 18:00</p>
+            </div>
+            <div class="work-days">
+                <p>Рабочие дни: с понедельника по пятницу</p>
+            </div>
+        </div>
         <form id="client-form">
             <div class="form-group">
                 <label for="first-name">Имя:</label>
@@ -92,26 +108,18 @@
             </div>
             <button type="submit" class="submit-btn">Записаться</button>
         </form>
-        <div class="table-container">
-            <table id="client-table">
-                <thead>
-                    <tr>
-                        <th>Имя</th>
-                        <th>Фамилия</th>
-                        <th>Номер телефона</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- Записи клиентов будут добавлены сюда -->
-                </tbody>
-            </table>
-        </div>
-        <div class="work-hours">
-            <p>Время работы: с 10:00 до 18:00</p>
-        </div>
-        <div class="work-days">
-            <p>Рабочие дни: с понедельника по пятницу</p>
-        </div>
+        <table id="client-table">
+            <thead>
+                <tr>
+                    <th>Имя</th>
+                    <th>Фамилия</th>
+                    <th>Номер телефона</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Записи клиентов будут добавлены сюда -->
+            </tbody>
+        </table>
     </div>
     <script>
         document.getElementById('client-form').addEventListener('submit', function(event) {
@@ -138,31 +146,6 @@
 
             // Очистка полей формы
             document.getElementById('client-form').reset();
-
-            // Отправка данных в Telegram
-            const botToken = '7127261486:AAGeUA36yn2M2XWistw77kPANuy16w6w3ss';
-            const chatId = '6641294569';
-            const message = `Новый клиент:\nИмя: ${firstName}\nФамилия: ${lastName}\nНомер телефона: ${phoneNumber}`;
-
-            fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    chat_id: chatId,
-                    text: message
-                })
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (!data.ok) {
-                    console.error('Ошибка отправки сообщения в Telegram:', data.description);
-                }
-            })
-            .catch(error => {
-                console.error('Ошибка отправки сообщения в Telegram:', error);
-            });
         });
     </script>
 </body>
